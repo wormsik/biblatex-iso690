@@ -220,7 +220,7 @@
 }
 \newbibmacro{availability}{%
 \usebibmacro{online-test}%
-{}%  
+{}%
 {\iffieldundef{howpublished}%
 {\usebibmacro{comment+link}{\usebibmacro{urlinfo}}\usebibmacro{print-online}}%
 {\usebibmacro{comment+link}{\printfield{howpublished}\usebibmacro{print-online}}}%
@@ -466,6 +466,52 @@
 \printfield{isbn}
 \newunit\newblock
 \finentry}
+
+%%%%%%%%%%%%%% START: software %%%%%%%%%%%%%%%%%%
+\newbibmacro*{software}{%
+  %\def\online{}%
+  \iffieldundef{urlyear}{}{\printtext[sbrackets]{software}}
+  %\usebibmacro{online-test}{}{\online}%
+}
+
+\newbibmacro{sw:title}{%
+ \iffieldundef{maintitle}{%
+  \iffieldundef{booktitle}{%
+    \usebibmacro{titles}{}%
+  }{%
+    \usebibmacro{titles}{book}%
+  }
+ }{%
+  \usebibmacro{titles}{main}%
+ }%
+ \usebibmacro{software}%
+}
+
+\DeclareBibliographyDriver{software}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+\usebibmacro{names:primary}
+\newunit\newblock
+\usebibmacro{sw:title}
+\newunit\newblock
+\usebibmacro{book:vol}
+\newunit\newblock
+\usebibmacro{book:pubinfo}
+\newunit\newblock
+\usebibmacro{pagecount}
+\newunit\newblock
+\printfield{series}
+\newunit\newblock
+\printfield{note}
+\newunit\newblock
+\usebibmacro{comment+link}{\mainlstring{url}}\usebibmacro{print-online}
+\newunit\newblock
+\printfield{isbn}
+\newunit\newblock
+\finentry}
+
+%%%%%%%%%%%%%% END: software %%%%%%%%%%%%%%%%%%
+
 
 \DeclareBibliographyAlias{bookinbook}{inbook}
 \DeclareBibliographyAlias{suppbook}{inbook}
